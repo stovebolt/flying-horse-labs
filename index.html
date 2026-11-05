@@ -24,8 +24,6 @@
     color: var(--phosphor);
     font: 15px/1.45 "Courier New", Courier, monospace;
   }
-
-  /* Full-width Fanuc-style operator panel bezel */
   .op-panel {
     width: 100%;
     background: linear-gradient(180deg, var(--bezel-light) 0%, var(--bezel) 45%, var(--bezel-dark) 100%);
@@ -40,7 +38,7 @@
     max-width: 1100px;
     margin: 0 auto;
   }
-   .logo-badge {
+  .logo-badge {
     flex: 0 0 auto;
     width: 96px;
     height: 120px;
@@ -59,13 +57,6 @@
     max-height: 100%;
     object-fit: contain;
     display: block;
-  }
-  .logo-badge .ph {
-    color: #888;
-    font-size: 11px;
-    text-align: center;
-    padding: 6px;
-    line-height: 1.3;
   }
   .title-block {
     flex: 1;
@@ -117,39 +108,38 @@
     box-shadow: 0 0 8px var(--lamp-power), inset 0 1px 1px rgba(255,255,255,.4), 0 0 0 2px #5a5340;
   }
   .lamp.alarm i { background: var(--lamp-off); }
-  .lamp.alarm.on i {
-    background: var(--lamp-on);
-    box-shadow: 0 0 8px var(--lamp-on), 0 0 0 2px #5a5340;
-  }
 
-  /* Soft-key row under the bezel (Fanuc CRT soft keys) */
   .softkeys {
     max-width: 1100px;
     margin: 8px auto 0;
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 5px;
   }
-  .softkeys button, .softkeys a {
+  .softkeys button {
     appearance: none;
     background: linear-gradient(180deg, #d8d0ba, #a89e82);
     border: 2px solid #5a5340;
     border-radius: 3px;
     color: var(--panel-ink);
-    font: 700 11px/1 "Courier New", monospace;
-    letter-spacing: 0.06em;
-    padding: 8px 4px;
+    font: 700 10px/1.1 "Courier New", monospace;
+    letter-spacing: 0.03em;
+    padding: 8px 2px;
     text-align: center;
-    text-decoration: none;
     box-shadow: inset 0 1px 0 #f0ead8, 0 2px 0 #5a5340;
-    cursor: default;
+    cursor: pointer;
   }
-  .softkeys a { cursor: pointer; }
-  .softkeys a:hover, .softkeys a:focus {
+  .softkeys button:hover,
+  .softkeys button:focus {
     background: linear-gradient(180deg, #efe8d4, #b8ae92);
   }
+  .softkeys button.active {
+    background: linear-gradient(180deg, #3a3428, #1a1810);
+    color: #e8dfc8;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.55);
+    border-color: #2a2618;
+  }
 
-  /* CRT screen area */
   .crt {
     max-width: 1100px;
     margin: 0 auto;
@@ -161,9 +151,6 @@
     box-shadow: inset 0 0 40px rgba(0,0,0,.65);
     min-height: 420px;
   }
-  .crt-scan {
-    position: relative;
-  }
   .banner {
     background: var(--phosphor);
     color: #000;
@@ -172,10 +159,12 @@
     font-weight: 700;
     letter-spacing: 0.1em;
   }
-  .intro {
-    margin: 0 0 14px;
-    color: var(--phosphor);
-    opacity: 0.9;
+  .intro { margin: 0 0 8px; opacity: 0.9; }
+  .ext-note {
+    margin: 0 0 12px;
+    font-size: 12px;
+    opacity: 0.75;
+    letter-spacing: 0.04em;
   }
   .grid {
     display: grid;
@@ -187,7 +176,7 @@
     padding: 10px;
     background: rgba(0, 40, 10, 0.25);
   }
-  .card h2 {
+  .card h2, .panel h2 {
     margin: 0 0 8px;
     font-size: 16px;
     background: var(--phosphor);
@@ -195,37 +184,38 @@
     padding: 3px 6px;
     letter-spacing: 0.06em;
   }
-  .card p { margin: 0 0 10px; }
-  .card a {
+  .panel h2 { display: inline-block; }
+  .card p, .panel p { margin: 0 0 10px; }
+  .card a, .panel a.ext {
     color: #000;
     background: var(--phosphor);
     padding: 3px 8px;
     text-decoration: none;
     display: inline-block;
     font-weight: 700;
+    margin: 2px 6px 2px 0;
   }
-  .card a:hover { outline: 2px solid #fff; }
-
+  .card a:hover, .panel a.ext:hover { outline: 2px solid #fff; }
   a.ext::after {
     content: " EXT";
     font-size: 0.75em;
     letter-spacing: 0.08em;
     opacity: 0.85;
   }
-  .ext-note {
-    margin: 0 0 12px;
-    font-size: 12px;
-    color: var(--phosphor);
-    opacity: 0.75;
-    letter-spacing: 0.04em;
-  }
-  .softkeys a.ext {
-    position: relative;
-  }
-
   .dim { opacity: 0.65; }
-  .soft-label {
-    display: none;
+  .empty {
+    border: 2px dashed var(--phosphor-dim);
+    padding: 14px;
+    opacity: 0.75;
+    grid-column: 1 / -1;
+  }
+  .panel {
+    border: 2px solid var(--phosphor);
+    padding: 12px;
+    background: rgba(0, 40, 10, 0.25);
+  }
+  .card[hidden], .panel[hidden], .empty[hidden], #project-grid[hidden] {
+    display: none !important;
   }
   footer {
     margin-top: 18px;
@@ -234,12 +224,10 @@
     font-size: 12px;
     opacity: 0.8;
   }
-
-  @media (max-width: 640px) {
+  @media (max-width: 720px) {
     .op-top { flex-wrap: wrap; }
-    .lamps { flex-direction: row; width: 100%; justify-content: flex-start; }
-    .softkeys { grid-template-columns: repeat(4, 1fr); }
-    .softkeys .hide-sm { display: none; }
+    .lamps { flex-direction: row; width: 100%; }
+    .softkeys { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   }
 </style>
 </head>
@@ -260,41 +248,106 @@
       <div class="lamp"><i></i> READY</div>
     </div>
   </div>
-  <div class="softkeys">
-    <a href="#projects">PROJ</a>
-    <a class="ext" href="https://stovebolt.github.io/gdt-trainer/" title="Opens an external site" rel="noopener noreferrer">GDT</a>
-    <a class="ext" href="https://stovebolt.github.io/dx32-ui-demo/" title="Opens an external site" rel="noopener noreferrer">DX32</a>
-    <button type="button" disabled class="hide-sm">TIPC</button>
-    <button type="button" disabled class="hide-sm">ABOUT</button>
-    <button type="button" disabled class="hide-sm">NOTES</button>
-    <button type="button" disabled>RESET</button>
+  <div class="softkeys" role="tablist" aria-label="Project groups">
+    <button type="button" class="active" data-view="all" title="All projects">ALL</button>
+    <button type="button" data-view="machine" title="CNC machine and 3D printer projects">MACHINE</button>
+    <button type="button" data-view="program" title="Non-machining hardware and software">PROGRAM</button>
+    <button type="button" data-view="tipc" title="TIPC projects">TIPC</button>
+    <button type="button" data-view="library" title="Documents and training">LIBRARY</button>
+    <button type="button" data-view="demo" title="Other hardware projects">DEMO</button>
+    <button type="button" data-view="contact" title="Contact info">CONTACT</button>
+    <button type="button" data-view="store" title="Merch and Printables">STORE</button>
   </div>
 </div>
 
 <main class="crt" id="projects">
   <div class="crt-scan">
-    <div class="banner">SELECT A PROJECT</div>
-    <p class="intro">Public hobby releases under Flying Horse Labs. Pick a card to open a live demo or note.</p>
-    <div class="grid">
-      <article class="card">
-        <h2>1  GD&amp;T TRAINER</h2>
+    <div class="banner" id="view-banner">SELECT A PROJECT · ALL</div>
+    <p class="intro">Public hobby releases under Flying Horse Labs. Soft keys group the work; pick a card to open a demo or note.</p>
+    <p class="ext-note">Links marked EXT open another site (GitHub Pages demos, Printables, etc.).</p>
+
+    <div class="grid" id="project-grid">
+      <article class="card" data-cat="library">
+        <h2>GD&amp;T TRAINER</h2>
         <p>Interactive 3D trainer for geometric dimensioning and tolerancing, starting with position tolerance of a hole.</p>
         <a class="ext" href="https://stovebolt.github.io/gdt-trainer/" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
       </article>
-      <article class="card">
-        <h2>2  DX32 REPLACEMENT</h2>
+      <article class="card" data-cat="machine">
+        <h2>DX32 REPLACEMENT</h2>
         <p>Drop-in modern control for the Bridgeport DX32 / EZ-PATH CNC lathe. UI demo of every screen.</p>
         <a class="ext" href="https://stovebolt.github.io/dx32-ui-demo/" title="Opens an external site" rel="noopener noreferrer">UI DEMO &gt;</a>
       </article>
-      <article class="card">
-        <h2>3  TIPC</h2>
+      <article class="card" data-cat="tipc">
+        <h2>TIPC</h2>
         <p>Texas Instruments Professional Computer: reference mining, emulation, and software ports.</p>
         <span class="dim">LINK COMING SOON</span>
       </article>
+      <div class="empty" id="empty-msg" hidden>NO PROGRAMS IN THIS GROUP.</div>
     </div>
+
+    <section class="panel" id="panel-contact" hidden>
+      <h2>CONTACT</h2>
+      <p>Flying Horse Labs — hobby releases by Will.</p>
+      <p>GitHub: <a class="ext" href="https://github.com/stovebolt" title="Opens an external site" rel="noopener noreferrer">stovebolt</a></p>
+      <p class="dim">More contact details coming soon.</p>
+    </section>
+
+    <section class="panel" id="panel-store" hidden>
+      <h2>STORE</h2>
+      <p>Merch and printable parts. Links open outside this control.</p>
+      <p><a class="ext" href="https://www.printables.com/" title="Opens an external site" rel="noopener noreferrer">PRINTABLES &gt;</a></p>
+      <p class="dim">Shop links and merch TBD.</p>
+    </section>
+
     <footer>(C) 2026 FLYING HORSE LABS · operator-panel draft</footer>
   </div>
 </main>
 
+<script>
+(function () {
+  var titles = {
+    all: 'SELECT A PROJECT · ALL',
+    machine: 'MACHINE · CNC / 3D PRINTER',
+    program: 'PROGRAM · NON-MACHINING',
+    tipc: 'TIPC PROJECTS',
+    library: 'LIBRARY · DOCS & TRAINING',
+    demo: 'DEMO · OTHER HARDWARE',
+    contact: 'CONTACT',
+    store: 'STORE · MERCH & LINKS'
+  };
+  var projectViews = { all:1, machine:1, program:1, tipc:1, library:1, demo:1 };
+  var keys = document.querySelectorAll('.softkeys [data-view]');
+  var cards = document.querySelectorAll('.card[data-cat]');
+  var grid = document.getElementById('project-grid');
+  var empty = document.getElementById('empty-msg');
+  var banner = document.getElementById('view-banner');
+  var contact = document.getElementById('panel-contact');
+  var store = document.getElementById('panel-store');
+
+  function setView(view) {
+    keys.forEach(function (b) {
+      b.classList.toggle('active', b.getAttribute('data-view') === view);
+    });
+    banner.textContent = titles[view] || view.toUpperCase();
+    var showProjects = !!projectViews[view];
+    grid.hidden = !showProjects;
+    contact.hidden = view !== 'contact';
+    store.hidden = view !== 'store';
+    if (!showProjects) return;
+    var shown = 0;
+    cards.forEach(function (c) {
+      var ok = view === 'all' || c.getAttribute('data-cat') === view;
+      c.hidden = !ok;
+      if (ok) shown++;
+    });
+    empty.hidden = shown > 0;
+  }
+
+  keys.forEach(function (b) {
+    b.addEventListener('click', function () { setView(b.getAttribute('data-view')); });
+  });
+  setView('all');
+})();
+</script>
 </body>
 </html>
