@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flying Horse Labs</title>
+<style>
+  :root {
+    --phosphor: #33ff66;
+    --phosphor-dim: #1a9940;
+    --crt-bg: #050805;
+    --bezel: #c4b89a;
+    --bezel-dark: #8a8068;
+    --bezel-light: #e8dfc8;
+    --panel-ink: #2a2418;
+    --lamp-off: #3a3a3a;
+    --lamp-on: #ff3333;
+    --lamp-power: #33cc55;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #1a1814;
+    color: var(--phosphor);
+    font: 15px/1.45 "Courier New", Courier, monospace;
+  }
+
+  /* Full-width Fanuc-style operator panel bezel */
+  .op-panel {
+    width: 100%;
+    background: linear-gradient(180deg, var(--bezel-light) 0%, var(--bezel) 45%, var(--bezel-dark) 100%);
+    border-bottom: 4px solid #5a5340;
+    box-shadow: inset 0 2px 0 #f5f0e0, 0 6px 18px rgba(0,0,0,.45);
+    padding: 10px 14px 8px;
+  }
+  .op-top {
+    display: flex;
+    align-items: stretch;
+    gap: 14px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+   .logo-badge {
+    flex: 0 0 auto;
+    width: 96px;
+    height: 120px;
+    padding: 4px;
+    background: #d8d2c0;
+    border: 3px solid #4a4434;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 2px #2a2618, 0 2px 4px rgba(0,0,0,.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .logo-badge img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .logo-badge .ph {
+    color: #888;
+    font-size: 11px;
+    text-align: center;
+    padding: 6px;
+    line-height: 1.3;
+  }
+  .title-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+  .title-block h1 {
+    margin: 0;
+    font-size: clamp(22px, 4vw, 34px);
+    letter-spacing: 0.12em;
+    color: var(--panel-ink);
+    text-shadow: 0 1px 0 #efe8d4;
+    font-weight: 700;
+  }
+  .title-block .tag {
+    margin-top: 4px;
+    color: #4a4434;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  .lamps {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    flex: 0 0 auto;
+  }
+  .lamp {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--panel-ink);
+    letter-spacing: 0.08em;
+    font-weight: 700;
+  }
+  .lamp i {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--lamp-off);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.6), 0 0 0 2px #5a5340;
+    display: inline-block;
+  }
+  .lamp.on i {
+    background: var(--lamp-power);
+    box-shadow: 0 0 8px var(--lamp-power), inset 0 1px 1px rgba(255,255,255,.4), 0 0 0 2px #5a5340;
+  }
+  .lamp.alarm i { background: var(--lamp-off); }
+  .lamp.alarm.on i {
+    background: var(--lamp-on);
+    box-shadow: 0 0 8px var(--lamp-on), 0 0 0 2px #5a5340;
+  }
+
+  /* Soft-key row under the bezel (Fanuc CRT soft keys) */
+  .softkeys {
+    max-width: 1100px;
+    margin: 8px auto 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+  .softkeys button, .softkeys a {
+    appearance: none;
+    background: linear-gradient(180deg, #d8d0ba, #a89e82);
+    border: 2px solid #5a5340;
+    border-radius: 3px;
+    color: var(--panel-ink);
+    font: 700 11px/1 "Courier New", monospace;
+    letter-spacing: 0.06em;
+    padding: 8px 4px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: inset 0 1px 0 #f0ead8, 0 2px 0 #5a5340;
+    cursor: default;
+  }
+  .softkeys a { cursor: pointer; }
+  .softkeys a:hover, .softkeys a:focus {
+    background: linear-gradient(180deg, #efe8d4, #b8ae92);
+  }
+
+  /* CRT screen area */
+  .crt {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px 14px 24px;
+    background: var(--crt-bg);
+    border-left: 10px solid #2a2618;
+    border-right: 10px solid #2a2618;
+    border-bottom: 14px solid #2a2618;
+    box-shadow: inset 0 0 40px rgba(0,0,0,.65);
+    min-height: 420px;
+  }
+  .crt-scan {
+    position: relative;
+  }
+  .banner {
+    background: var(--phosphor);
+    color: #000;
+    padding: 4px 8px;
+    margin: 0 0 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .intro {
+    margin: 0 0 14px;
+    color: var(--phosphor);
+    opacity: 0.9;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .card {
+    border: 2px solid var(--phosphor);
+    padding: 10px;
+    background: rgba(0, 40, 10, 0.25);
+  }
+  .card h2 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    background: var(--phosphor);
+    color: #000;
+    padding: 3px 6px;
+    letter-spacing: 0.06em;
+  }
+  .card p { margin: 0 0 10px; }
+  .card a {
+    color: #000;
+    background: var(--phosphor);
+    padding: 3px 8px;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 700;
+  }
+  .card a:hover { outline: 2px solid #fff; }
+  .dim { opacity: 0.65; }
+  .soft-label {
+    display: none;
+  }
+  footer {
+    margin-top: 18px;
+    border-top: 2px solid var(--phosphor-dim);
+    padding-top: 8px;
+    font-size: 12px;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 640px) {
+    .op-top { flex-wrap: wrap; }
+    .lamps { flex-direction: row; width: 100%; justify-content: flex-start; }
+    .softkeys { grid-template-columns: repeat(4, 1fr); }
+    .softkeys .hide-sm { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="op-panel" role="banner">
+  <div class="op-top">
+    <div class="logo-badge" aria-label="Flying Horse Labs logo">
+      <img src="logo.jpg" alt="Flying Horse Labs">
+    </div>
+    <div class="title-block">
+      <h1>FLYING HORSE LABS</h1>
+      <div class="tag">Hobby projects · machines · metrology · vintage computing</div>
+    </div>
+    <div class="lamps" aria-hidden="true">
+      <div class="lamp on"><i></i> POWER</div>
+      <div class="lamp alarm"><i></i> ALARM</div>
+      <div class="lamp"><i></i> READY</div>
+    </div>
+  </div>
+  <div class="softkeys">
+    <a href="#projects">PROJ</a>
+    <a href="https://stovebolt.github.io/gdt-trainer/">GDT</a>
+    <a href="https://stovebolt.github.io/dx32-ui-demo/">DX32</a>
+    <button type="button" disabled class="hide-sm">TIPC</button>
+    <button type="button" disabled class="hide-sm">ABOUT</button>
+    <button type="button" disabled class="hide-sm">NOTES</button>
+    <button type="button" disabled>RESET</button>
+  </div>
+</div>
+
+<main class="crt" id="projects">
+  <div class="crt-scan">
+    <div class="banner">SELECT A PROJECT</div>
+    <p class="intro">Public hobby releases under Flying Horse Labs. Pick a card to open a live demo or note.</p>
+    <div class="grid">
+      <article class="card">
+        <h2>1  GD&amp;T TRAINER</h2>
+        <p>Interactive 3D trainer for geometric dimensioning and tolerancing, starting with position tolerance of a hole.</p>
+        <a href="https://stovebolt.github.io/gdt-trainer/">OPEN &gt;</a>
+      </article>
+      <article class="card">
+        <h2>2  DX32 REPLACEMENT</h2>
+        <p>Drop-in modern control for the Bridgeport DX32 / EZ-PATH CNC lathe. UI demo of every screen.</p>
+        <a href="https://stovebolt.github.io/dx32-ui-demo/">UI DEMO &gt;</a>
+      </article>
+      <article class="card">
+        <h2>3  TIPC</h2>
+        <p>Texas Instruments Professional Computer: reference mining, emulation, and software ports.</p>
+        <span class="dim">LINK COMING SOON</span>
+      </article>
+    </div>
+    <footer>(C) 2026 FLYING HORSE LABS · operator-panel draft</footer>
+  </div>
+</main>
+
+</body>
+</html>
