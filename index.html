@@ -108,6 +108,15 @@
     box-shadow: 0 0 8px var(--lamp-power), inset 0 1px 1px rgba(255,255,255,.4), 0 0 0 2px #5a5340;
   }
   .lamp.alarm i { background: var(--lamp-off); }
+  .lamp.alarm.on i {
+    background: var(--lamp-on);
+    box-shadow: 0 0 8px var(--lamp-on), 0 0 0 2px #5a5340;
+    animation: alarm-blink 1s steps(1, end) infinite;
+  }
+  @keyframes alarm-blink {
+    0%, 49% { background: var(--lamp-on); box-shadow: 0 0 10px var(--lamp-on), 0 0 0 2px #5a5340; }
+    50%, 100% { background: var(--lamp-off); box-shadow: inset 0 1px 2px rgba(0,0,0,.6), 0 0 0 2px #5a5340; }
+  }
 
   .softkeys {
     max-width: 1100px;
@@ -140,16 +149,18 @@
     border-color: #2a2618;
   }
 
-  .crt {
+  .shell {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 16px 14px 24px;
     background: var(--crt-bg);
     border-left: 10px solid #2a2618;
     border-right: 10px solid #2a2618;
     border-bottom: 14px solid #2a2618;
     box-shadow: inset 0 0 40px rgba(0,0,0,.65);
-    min-height: 420px;
+  }
+  .crt {
+    padding: 16px 14px 12px;
+    min-height: 380px;
   }
   .banner {
     background: var(--phosphor);
@@ -175,6 +186,8 @@
     border: 2px solid var(--phosphor);
     padding: 10px;
     background: rgba(0, 40, 10, 0.25);
+    display: flex;
+    flex-direction: column;
   }
   .card h2, .panel h2 {
     margin: 0 0 8px;
@@ -186,6 +199,7 @@
   }
   .panel h2 { display: inline-block; }
   .card p, .panel p { margin: 0 0 10px; }
+  .card .body { flex: 1; }
   .card a, .panel a.ext {
     color: #000;
     background: var(--phosphor);
@@ -202,28 +216,170 @@
     letter-spacing: 0.08em;
     opacity: 0.85;
   }
+  .tags {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--phosphor-dim);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    opacity: 0.85;
+    word-break: break-word;
+  }
+  .tags button {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: var(--phosphor);
+    font: inherit;
+    padding: 0 6px 0 0;
+    cursor: pointer;
+    text-decoration: underline;
+  }
   .dim { opacity: 0.65; }
-  .empty {
-    border: 2px dashed var(--phosphor-dim);
+  .empty-alarm {
+    border: 2px solid #ff3333;
     padding: 14px;
-    opacity: 0.75;
     grid-column: 1 / -1;
+    background: rgba(40, 0, 0, 0.35);
+  }
+  .empty-alarm .code {
+    color: #ff6666;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0 0 6px;
+  }
+  .empty-alarm .flash {
+    background: #ff3333;
+    color: #000;
+    display: inline-block;
+    padding: 2px 8px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    animation: banner-flash 1s steps(1, end) infinite;
+  }
+  @keyframes banner-flash {
+    0%, 49% { background: #ff3333; color: #000; }
+    50%, 100% { background: #000; color: #ff3333; outline: 2px solid #ff3333; }
   }
   .panel {
     border: 2px solid var(--phosphor);
     padding: 12px;
     background: rgba(0, 40, 10, 0.25);
   }
-  .card[hidden], .panel[hidden], .empty[hidden], #project-grid[hidden] {
+  .card[hidden], .panel[hidden], .empty-alarm[hidden], #project-grid[hidden] {
     display: none !important;
   }
-  footer {
+  footer.meta {
     margin-top: 18px;
     border-top: 2px solid var(--phosphor-dim);
     padding-top: 8px;
     font-size: 12px;
     opacity: 0.8;
   }
+
+  .keybar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 12px 10px;
+    border-top: 2px solid var(--phosphor-dim);
+    background: #020402;
+  }
+  .keybar .label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    margin-right: 4px;
+  }
+  .keybar button {
+    appearance: none;
+    background: linear-gradient(180deg, #d8d0ba, #a89e82);
+    border: 2px solid #5a5340;
+    border-radius: 3px;
+    color: var(--panel-ink);
+    font: 700 12px/1 "Courier New", monospace;
+    padding: 6px 10px;
+    box-shadow: inset 0 1px 0 #f0ead8, 0 2px 0 #5a5340;
+    cursor: pointer;
+  }
+  .keybar button kbd {
+    font: inherit;
+    background: #2a2618;
+    color: #e8dfc8;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-right: 6px;
+  }
+  .keybar .hint {
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  /* Hashtag search popup — same CRT/panel style */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.72);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 50;
+  }
+  .modal-backdrop[hidden] { display: none !important; }
+  .modal {
+    width: min(520px, 100%);
+    background: var(--crt-bg);
+    border: 10px solid #2a2618;
+    box-shadow: 0 0 0 4px #5a5340, 0 16px 40px rgba(0,0,0,.6), inset 0 0 30px rgba(0,0,0,.5);
+    color: var(--phosphor);
+    padding: 14px;
+  }
+  .modal .banner { margin-bottom: 10px; }
+  .modal label {
+    display: block;
+    margin: 0 0 6px;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+  }
+  .modal input {
+    width: 100%;
+    background: #000;
+    border: 2px solid var(--phosphor);
+    color: var(--phosphor);
+    font: 16px/1.3 "Courier New", monospace;
+    padding: 8px;
+    outline: none;
+  }
+  .modal input:focus { box-shadow: 0 0 0 2px var(--phosphor-dim); }
+  .modal .actions {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .modal .actions button {
+    appearance: none;
+    background: var(--phosphor);
+    border: 0;
+    color: #000;
+    font: 700 13px/1 "Courier New", monospace;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  .modal .actions button.secondary {
+    background: transparent;
+    color: var(--phosphor);
+    border: 2px solid var(--phosphor);
+  }
+  .modal .result {
+    margin-top: 12px;
+    font-size: 13px;
+    min-height: 1.4em;
+  }
+
   @media (max-width: 720px) {
     .op-top { flex-wrap: wrap; }
     .lamps { flex-direction: row; width: 100%; }
@@ -243,9 +399,9 @@
       <div class="tag">Hobby projects · machines · metrology · vintage computing</div>
     </div>
     <div class="lamps" aria-hidden="true">
-      <div class="lamp on"><i></i> POWER</div>
-      <div class="lamp alarm"><i></i> ALARM</div>
-      <div class="lamp"><i></i> READY</div>
+      <div class="lamp on" id="lamp-power"><i></i> POWER</div>
+      <div class="lamp alarm" id="lamp-alarm"><i></i> ALARM</div>
+      <div class="lamp" id="lamp-ready"><i></i> READY</div>
     </div>
   </div>
   <div class="softkeys" role="tablist" aria-label="Project groups">
@@ -260,29 +416,44 @@
   </div>
 </div>
 
+<div class="shell">
 <main class="crt" id="projects">
   <div class="crt-scan">
     <div class="banner" id="view-banner">SELECT A PROJECT · ALL</div>
     <p class="intro">Public hobby releases under Flying Horse Labs. Soft keys group the work; pick a card to open a demo or note.</p>
-    <p class="ext-note">Links marked EXT open another site (GitHub Pages demos, Printables, etc.).</p>
+    <p class="ext-note">Links marked EXT open another site. Press <strong>#</strong> to search hashtags.</p>
 
     <div class="grid" id="project-grid">
-      <article class="card" data-cat="library">
-        <h2>GD&amp;T TRAINER</h2>
-        <p>Interactive 3D trainer for geometric dimensioning and tolerancing, starting with position tolerance of a hole.</p>
-        <a class="ext" href="https://stovebolt.github.io/gdt-trainer/" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+      <article class="card" data-cat="library" data-tags="#library #gdt #training #metrology #3d">
+        <div class="body">
+          <h2>GD&amp;T TRAINER</h2>
+          <p>Interactive 3D trainer for geometric dimensioning and tolerancing, starting with position tolerance of a hole.</p>
+          <a class="ext" href="https://stovebolt.github.io/gdt-trainer/" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+        </div>
+        <div class="tags"></div>
       </article>
-      <article class="card" data-cat="machine">
-        <h2>DX32 REPLACEMENT</h2>
-        <p>Drop-in modern control for the Bridgeport DX32 / EZ-PATH CNC lathe. UI demo of every screen.</p>
-        <a class="ext" href="https://stovebolt.github.io/dx32-ui-demo/" title="Opens an external site" rel="noopener noreferrer">UI DEMO &gt;</a>
+      <article class="card" data-cat="machine" data-tags="#machine #cnc #lathe #dx32 #bridgeport">
+        <div class="body">
+          <h2>DX32 REPLACEMENT</h2>
+          <p>Drop-in modern control for the Bridgeport DX32 / EZ-PATH CNC lathe. UI demo of every screen.</p>
+          <a class="ext" href="https://stovebolt.github.io/dx32-ui-demo/" title="Opens an external site" rel="noopener noreferrer">UI DEMO &gt;</a>
+        </div>
+        <div class="tags"></div>
       </article>
-      <article class="card" data-cat="comp">
-        <h2>TIPC</h2>
-        <p>Texas Instruments Professional Computer: reference mining, emulation, and software ports.</p>
-        <span class="dim">LINK COMING SOON</span>
+      <article class="card" data-cat="comp" data-tags="#comp #tipc #vintage #sbc #emulator">
+        <div class="body">
+          <h2>TIPC</h2>
+          <p>Texas Instruments Professional Computer: reference mining, emulation, and software ports.</p>
+          <span class="dim">LINK COMING SOON</span>
+        </div>
+        <div class="tags"></div>
       </article>
-      <div class="empty" id="empty-msg" hidden>NO PROGRAMS IN THIS GROUP.</div>
+      <div class="empty-alarm" id="empty-msg" hidden>
+        <div class="flash">*** ALARM ***</div>
+        <p class="code">P/S ALARM 059</p>
+        <p>NO PROGRAM IN SELECTED GROUP</p>
+        <p class="dim">Select another soft key, or press # to search hashtags.</p>
+      </div>
     </div>
 
     <section class="panel" id="panel-contact" hidden>
@@ -299,9 +470,30 @@
       <p class="dim">Shop links and merch TBD.</p>
     </section>
 
-    <footer>(C) 2026 FLYING HORSE LABS · operator-panel draft</footer>
+    <footer class="meta">(C) 2026 FLYING HORSE LABS · operator-panel draft</footer>
   </div>
 </main>
+
+<div class="keybar" aria-label="Keybindings">
+  <span class="label">KEYS</span>
+  <button type="button" id="btn-hash-search" title="Search hashtags"><kbd>#</kbd>SEARCH</button>
+  <span class="hint">Type <kbd style="background:#2a2618;color:#e8dfc8;padding:1px 5px;">#</kbd> anywhere to open hashtag search.</span>
+</div>
+</div>
+
+<div class="modal-backdrop" id="search-modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="search-title">
+    <div class="banner" id="search-title">HASHTAG SEARCH</div>
+    <label for="tag-input">ENTER TAG (example: #cnc)</label>
+    <input id="tag-input" type="text" autocomplete="off" spellcheck="false" placeholder="#…">
+    <div class="actions">
+      <button type="button" id="search-go">EXEC</button>
+      <button type="button" class="secondary" id="search-clear">CLEAR FILTER</button>
+      <button type="button" class="secondary" id="search-cancel">RESET / ESC</button>
+    </div>
+    <div class="result" id="search-result"></div>
+  </div>
+</div>
 
 <script>
 (function () {
@@ -317,36 +509,166 @@
   };
   var projectViews = { all:1, machine:1, program:1, comp:1, library:1, demo:1 };
   var keys = document.querySelectorAll('.softkeys [data-view]');
-  var cards = document.querySelectorAll('.card[data-cat]');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card[data-cat]'));
   var grid = document.getElementById('project-grid');
   var empty = document.getElementById('empty-msg');
   var banner = document.getElementById('view-banner');
   var contact = document.getElementById('panel-contact');
   var store = document.getElementById('panel-store');
+  var lampAlarm = document.getElementById('lamp-alarm');
+  var modal = document.getElementById('search-modal');
+  var tagInput = document.getElementById('tag-input');
+  var searchResult = document.getElementById('search-result');
+  var currentView = 'all';
+  var tagFilter = null; // normalized without #
+
+  function normalizeTag(s) {
+    return String(s || '').trim().toLowerCase().replace(/^#+/, '');
+  }
+
+  function cardTags(card) {
+    return (card.getAttribute('data-tags') || '')
+      .split(/\s+/)
+      .map(normalizeTag)
+      .filter(Boolean);
+  }
+
+  function paintTags() {
+    cards.forEach(function (card) {
+      var box = card.querySelector('.tags');
+      if (!box) return;
+      box.innerHTML = '';
+      cardTags(card).forEach(function (t) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = '#' + t;
+        b.addEventListener('click', function () {
+          openSearch('#' + t);
+          runSearch();
+        });
+        box.appendChild(b);
+      });
+    });
+  }
+
+  function setAlarm(on) {
+    lampAlarm.classList.toggle('on', !!on);
+  }
 
   function setView(view) {
+    currentView = view;
     keys.forEach(function (b) {
       b.classList.toggle('active', b.getAttribute('data-view') === view);
     });
     banner.textContent = titles[view] || view.toUpperCase();
+    if (tagFilter) {
+      banner.textContent += ' · #' + tagFilter;
+    }
     var showProjects = !!projectViews[view];
     grid.hidden = !showProjects;
     contact.hidden = view !== 'contact';
     store.hidden = view !== 'store';
-    if (!showProjects) return;
+    if (!showProjects) {
+      setAlarm(false);
+      return;
+    }
+    applyFilters();
+  }
+
+  function applyFilters() {
     var shown = 0;
     cards.forEach(function (c) {
       var cats = (c.getAttribute('data-cat') || '').split(/\s+/).filter(Boolean);
-      var ok = view === 'all' || cats.indexOf(view) !== -1;
+      var catOk = currentView === 'all' || cats.indexOf(currentView) !== -1;
+      var tagOk = !tagFilter || cardTags(c).indexOf(tagFilter) !== -1;
+      var ok = catOk && tagOk;
       c.hidden = !ok;
       if (ok) shown++;
     });
-    empty.hidden = shown > 0;
+    var alarming = shown === 0;
+    empty.hidden = !alarming;
+    setAlarm(alarming);
+    if (searchResult && modal && !modal.hidden) {
+      searchResult.textContent = shown
+        ? ('FOUND ' + shown + ' PROGRAM' + (shown === 1 ? '' : 'S'))
+        : 'P/S ALARM 059 — NO PROGRAM MATCH';
+    }
+  }
+
+  function openSearch(prefill) {
+    modal.hidden = false;
+    tagInput.value = prefill || (tagFilter ? '#' + tagFilter : '#');
+    searchResult.textContent = '';
+    setTimeout(function () {
+      tagInput.focus();
+      tagInput.setSelectionRange(tagInput.value.length, tagInput.value.length);
+    }, 0);
+  }
+
+  function closeSearch() {
+    modal.hidden = true;
+  }
+
+  function runSearch() {
+    tagFilter = normalizeTag(tagInput.value) || null;
+    if (currentView === 'contact' || currentView === 'store') {
+      currentView = 'all';
+    }
+    setView(currentView);
+    if (!tagFilter) {
+      searchResult.textContent = 'FILTER CLEARED';
+    }
+  }
+
+  function clearFilter() {
+    tagFilter = null;
+    tagInput.value = '#';
+    setView(currentView);
+    searchResult.textContent = 'FILTER CLEARED';
   }
 
   keys.forEach(function (b) {
-    b.addEventListener('click', function () { setView(b.getAttribute('data-view')); });
+    b.addEventListener('click', function () {
+      setView(b.getAttribute('data-view'));
+    });
   });
+
+  document.getElementById('btn-hash-search').addEventListener('click', function () {
+    openSearch('#');
+  });
+  document.getElementById('search-go').addEventListener('click', runSearch);
+  document.getElementById('search-clear').addEventListener('click', clearFilter);
+  document.getElementById('search-cancel').addEventListener('click', closeSearch);
+
+  tagInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      runSearch();
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      closeSearch();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !modal.hidden) {
+      closeSearch();
+      return;
+    }
+    if (modal.hidden && e.key === '#' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      var t = e.target;
+      var tag = t && t.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || (t && t.isContentEditable)) return;
+      e.preventDefault();
+      openSearch('#');
+    }
+  });
+
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) closeSearch();
+  });
+
+  paintTags();
   setView('all');
 })();
 </script>
