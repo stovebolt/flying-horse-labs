@@ -205,6 +205,24 @@
     font-weight: 700;
   }
   .card a:hover { outline: 2px solid #fff; }
+
+  a.ext::after {
+    content: " EXT";
+    font-size: 0.75em;
+    letter-spacing: 0.08em;
+    opacity: 0.85;
+  }
+  .ext-note {
+    margin: 0 0 12px;
+    font-size: 12px;
+    color: var(--phosphor);
+    opacity: 0.75;
+    letter-spacing: 0.04em;
+  }
+  .softkeys a.ext {
+    position: relative;
+  }
+
   .dim { opacity: 0.65; }
   .soft-label {
     display: none;
@@ -244,8 +262,8 @@
   </div>
   <div class="softkeys">
     <a href="#projects">PROJ</a>
-    <a href="https://stovebolt.github.io/gdt-trainer/">GDT</a>
-    <a href="https://stovebolt.github.io/dx32-ui-demo/">DX32</a>
+    <a class="ext" href="https://stovebolt.github.io/gdt-trainer/" title="Opens an external site" rel="noopener noreferrer">GDT</a>
+    <a class="ext" href="https://stovebolt.github.io/dx32-ui-demo/" title="Opens an external site" rel="noopener noreferrer">DX32</a>
     <button type="button" disabled class="hide-sm">TIPC</button>
     <button type="button" disabled class="hide-sm">ABOUT</button>
     <button type="button" disabled class="hide-sm">NOTES</button>
@@ -261,12 +279,12 @@
       <article class="card">
         <h2>1  GD&amp;T TRAINER</h2>
         <p>Interactive 3D trainer for geometric dimensioning and tolerancing, starting with position tolerance of a hole.</p>
-        <a href="https://stovebolt.github.io/gdt-trainer/">OPEN &gt;</a>
+        <a class="ext" href="https://stovebolt.github.io/gdt-trainer/" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
       </article>
       <article class="card">
         <h2>2  DX32 REPLACEMENT</h2>
         <p>Drop-in modern control for the Bridgeport DX32 / EZ-PATH CNC lathe. UI demo of every screen.</p>
-        <a href="https://stovebolt.github.io/dx32-ui-demo/">UI DEMO &gt;</a>
+        <a class="ext" href="https://stovebolt.github.io/dx32-ui-demo/" title="Opens an external site" rel="noopener noreferrer">UI DEMO &gt;</a>
       </article>
       <article class="card">
         <h2>3  TIPC</h2>
