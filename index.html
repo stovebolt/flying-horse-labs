@@ -270,6 +270,78 @@
   .card[hidden], .panel[hidden], .empty-alarm[hidden], #project-grid[hidden] {
     display: none !important;
   }
+
+  .store-section { margin: 14px 0 8px; }
+  .store-section .sec-title {
+    margin: 0 0 8px;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    border-bottom: 1px solid var(--phosphor-dim);
+    padding-bottom: 4px;
+    opacity: 0.95;
+  }
+  .store-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+  }
+  .store-card {
+    border: 2px solid var(--phosphor);
+    background: rgba(0, 40, 10, 0.28);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .store-card .thumb {
+    border-bottom: 2px solid var(--phosphor-dim);
+    background: #001a08;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .store-card .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.15) brightness(0.95);
+    mix-blend-mode: luminosity;
+    opacity: 0.92;
+  }
+  .store-card .body { padding: 8px 10px 10px; flex: 1; display: flex; flex-direction: column; }
+  .store-card .kind {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    opacity: 0.8;
+    margin-bottom: 4px;
+  }
+  .store-card h3 {
+    margin: 0 0 6px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.25;
+  }
+  .store-card .meta {
+    margin: 0 0 10px;
+    font-size: 12px;
+    opacity: 0.8;
+  }
+  .store-card a.ext { margin-top: auto; align-self: flex-start; }
+  .store-card.link-card {
+    border-style: dashed;
+    background: rgba(0, 30, 8, 0.18);
+  }
+  .store-card.link-card .thumb {
+    aspect-ratio: auto;
+    min-height: 48px;
+    border-bottom-style: dashed;
+    letter-spacing: 0.16em;
+    font-size: 12px;
+    opacity: 0.85;
+  }
+  .store-card.link-card .kind { letter-spacing: 0.18em; }
   footer.meta {
     margin-top: 18px;
     border-top: 2px solid var(--phosphor-dim);
@@ -482,12 +554,170 @@
 
     <section class="panel" id="panel-store" hidden>
       <h2>STORE</h2>
-      <p>Merch and printable parts. Links open outside this control.</p>
-      <p>
-        <a class="ext" href="https://www.printables.com/@flyinghorse_3768402" title="Opens an external site" rel="noopener noreferrer">PRINTABLES &gt;</a>
-        <a class="ext" href="https://www.etsy.com/shop/BrantinghamWorks" title="Opens an external site" rel="noopener noreferrer">ETSY &gt;</a>
-        <a class="ext" href="https://www.thingiverse.com/FlyingHorseLabs" title="Opens an external site" rel="noopener noreferrer">THINGIVERSE &gt;</a>
-      </p>
+      <p class="ext-note">CRT listings · each OPEN jumps off-site (EXT). Prices and stock live on the seller page.</p>
+
+      <div class="store-section" id="store-etsy">
+        <div class="sec-title">ETSY · BRANTINGHAMWORKS</div>
+        <div class="store-grid" id="etsy-grid">
+          <article class="store-card item">
+            <div class="thumb"><img src="https://i.etsystatic.com/6904556/r/il/8255c5/7316941822/il_570xN.7316941822_rep5.jpg" alt="" loading="lazy"></div>
+            <div class="body">
+              <div class="kind">ETSY</div>
+              <h3>ER Collet Tray Print Files, ER8 ER11 ER16 ER20 ER25 ER32 ER40 ER50</h3>
+              <p class="meta">$3.99</p>
+              <a class="ext" href="https://www.etsy.com/listing/4391980320/er-collet-tray-print-files-er8-er11-er16?ref=rss" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+            </div>
+          </article>
+          <article class="store-card item">
+            <div class="thumb"><img src="https://i.etsystatic.com/6904556/r/il/e9f961/7116825808/il_570xN.7116825808_scv5.jpg" alt="" loading="lazy"></div>
+            <div class="body">
+              <div class="kind">ETSY</div>
+              <h3>VETTA VENTURA Dallas, Texas Logo T-Shirt</h3>
+              <p class="meta">$23.33</p>
+              <a class="ext" href="https://www.etsy.com/listing/4353675881/vetta-ventura-dallas-texas-logo-t-shirt?ref=rss" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+            </div>
+          </article>
+          <article class="store-card item">
+            <div class="thumb"><img src="https://i.etsystatic.com/6904556/r/il/4acad5/7358066671/il_570xN.7358066671_fwo7.jpg" alt="" loading="lazy"></div>
+            <div class="body">
+              <div class="kind">ETSY</div>
+              <h3>Heathkit H8 Style Case for Raspberry Pi Print Files</h3>
+              <p class="meta">$2.99</p>
+              <a class="ext" href="https://www.etsy.com/listing/4386935101/heathkit-h8-style-case-for-raspberry-pi?ref=rss" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+            </div>
+          </article>
+          <article class="store-card item">
+            <div class="thumb"><img src="https://i.etsystatic.com/6904556/r/il/e321fb/6504679668/il_570xN.6504679668_273j.jpg" alt="" loading="lazy"></div>
+            <div class="body">
+              <div class="kind">ETSY</div>
+              <h3>Heathkit H8 Style Case for Raspberry Pi</h3>
+              <p class="meta">$19.99</p>
+              <a class="ext" href="https://www.etsy.com/listing/1070156459/heathkit-h8-style-case-for-raspberry-pi?ref=rss" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+            </div>
+          </article>
+         title="Opens an external site" rel="noopener noreferrer">FULL SHOP &gt;</a></p>
+      </div>
+
+      <div class="store-section" id="store-printables">
+        <div class="sec-title">PRINTABLES · @flyinghorse</div>
+        <div class="store-grid">
+      <article class="store-card item">
+        <div class="thumb"><img src="https://media.printables.com/media/prints/6c812a06-5ae9-45b0-b85d-8f0f98dbfa8f/images/13008826_346ba34b-145b-4b95-b7b7-4a71d218bc04_0e153b67-fbfb-4f94-b6ed-a63050672d3f/saka-lead-photo.png" alt="" loading="lazy"></div>
+        <div class="body">
+          <div class="kind">PRINTABLES</div>
+          <h3>Saka, a Modern Stylish Raspberry Pi 5 Case for Desktop Or Gaming Use</h3>
+          <p class="meta">43 DL · 10 likes · FREE</p>
+          <a class="ext" href="https://www.printables.com/model/1676682-saka-a-modern-stylish-raspberry-pi-5-case-for-desk" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+        </div>
+      </article>
+      <article class="store-card item">
+        <div class="thumb"><img src="https://media.printables.com/media/prints/9dc22868-76ae-4f3e-a3c2-4a9882355e88/images/11989404_99193e3c-e252-4c57-8f92-c35c025f1801_20e146a5-1d6c-4a87-8df5-f36755e78198/mustangls_five-three_2017-sep-19_05-58-39pm-000_customizedview4534885394_png.png" alt="" loading="lazy"></div>
+        <div class="body">
+          <div class="kind">PRINTABLES</div>
+          <h3>Ford Mustang Fox Body LS Conversion Badges</h3>
+          <p class="meta">25 DL · 7 likes · FREE</p>
+          <a class="ext" href="https://www.printables.com/model/1593276-ford-mustang-fox-body-ls-conversion-badges" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+        </div>
+      </article>
+      <article class="store-card item">
+        <div class="thumb"><img src="https://media.printables.com/media/prints/64e577d9-0c2b-482d-a54a-4904c3b68ad2/images/11973774_e6ebb1d7-0c17-41f8-809f-9026dd2612c5_56378ab6-bef5-4e31-bdbc-cb426184d0d1/amphora_1_dressel_1_2026-feb-08_02-50-55pm-000_customizedview41575557254_png.png" alt="" loading="lazy"></div>
+        <div class="body">
+          <div class="kind">PRINTABLES</div>
+          <h3>Dressel Amphora Single Flower Vase for Valentines</h3>
+          <p class="meta">3 DL · 1 likes · FREE</p>
+          <a class="ext" href="https://www.printables.com/model/1591066-dressel-amphora-single-flower-vase-for-valentines" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+        </div>
+      </article>
+      <article class="store-card item">
+        <div class="thumb"><img src="https://media.printables.com/media/prints/b260ee05-0cdb-45a7-8255-d88760a8fdc4/images/11777652_14bf54b0-7b3d-41e7-803e-8f7b4e91d741_9a41b924-9153-4830-b9f8-63149fc04a64/47l_stroker_badge.png" alt="" loading="lazy"></div>
+        <div class="body">
+          <div class="kind">PRINTABLES</div>
+          <h3>Jeep Stroker Badges 4.6 4.7 5.3 Higher Output Supercharged</h3>
+          <p class="meta">25 DL · 4 likes · FREE</p>
+          <a class="ext" href="https://www.printables.com/model/1557358-jeep-stroker-badges-46-47-53-higher-output-superch" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+        </div>
+      </article>
+      <article class="store-card item">
+        <div class="thumb"><img src="https://media.printables.com/media/prints/4a2f46f7-a410-4dc1-bf07-cfc480959fc6/images/11760933_4d0ecc60-4ed5-4c3f-a6fc-6e5503890c39_908a2cc3-e74c-476a-a664-18a594c5072a/20260117_145009.jpg" alt="" loading="lazy"></div>
+        <div class="body">
+          <div class="kind">PRINTABLES</div>
+          <h3>Derafsh-e Kavian Sassanian Persian Javid Shah!</h3>
+          <p class="meta">36 DL · 7 likes · FREE</p>
+          <a class="ext" href="https://www.printables.com/model/1560653-derafsh-e-kavian-sassanian-persian-javid-shah" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+        </div>
+      </article>
+      <article class="store-card item">
+        <div class="thumb"><img src="https://media.printables.com/media/prints/d8dc1cd1-92b9-4f14-86d7-7e9f2591d23b/images/11411567_33003c02-a630-4748-8e5c-0bed1e7adb88_47f37ae1-9e0a-4982-b930-ac8cf111f4ef/img_2208.jpeg" alt="" loading="lazy"></div>
+        <div class="body">
+          <div class="kind">PRINTABLES</div>
+          <h3>Heathkit H8 style case for Raspberry Pi</h3>
+          <p class="meta">10 DL · 5 likes · FREE</p>
+          <a class="ext" href="https://www.printables.com/model/1514835-heathkit-h8-style-case-for-raspberry-pi" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+        </div>
+      </article>
+      <article class="store-card item">
+        <div class="thumb"><img src="https://media.printables.com/media/prints/6f878721-8200-48a1-884d-bf1fa1a796e3/images/11399061_dd19cc93-f3a6-4b7f-84f4-de3d46b06be6_bc4c1c7b-c0c8-4b04-a418-5edebabe07a5/fanook.png" alt="" loading="lazy"></div>
+        <div class="body">
+          <div class="kind">PRINTABLES</div>
+          <h3>Fanook</h3>
+          <p class="meta">1 DL · 2 likes · FREE</p>
+          <a class="ext" href="https://www.printables.com/model/1513161-fanook" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+        </div>
+      </article>
+      <article class="store-card item">
+        <div class="thumb"><img src="https://media.printables.com/media/prints/3aa327df-15bb-48cc-9be4-50a074940456/images/11399100_1131b0cd-9424-4721-9937-d79dc89708b1_41bc3023-092a-4e9a-9af0-9dc3c7cc3b7a/suonare-one.png" alt="" loading="lazy"></div>
+        <div class="body">
+          <div class="kind">PRINTABLES</div>
+          <h3>Suonare</h3>
+          <p class="meta">5 DL · 3 likes · FREE</p>
+          <a class="ext" href="https://www.printables.com/model/1513166-suonare" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+        </div>
+      </article>
+      <article class="store-card item">
+        <div class="thumb"><img src="https://media.printables.com/media/prints/5a08596c-aa57-426b-8931-5a34322316f2/images/11398765_4065212e-8c3d-4e2b-9835-12e94f458e0a_6c0839c3-9ad9-4903-9034-dd2abcde63e5/smooth_fanook.png" alt="" loading="lazy"></div>
+        <div class="body">
+          <div class="kind">PRINTABLES</div>
+          <h3>Smooth Fanook</h3>
+          <p class="meta">2 DL · 2 likes · FREE</p>
+          <a class="ext" href="https://www.printables.com/model/1513131-smooth-fanook" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+        </div>
+      </article>
+      <article class="store-card item">
+        <div class="thumb"><img src="https://media.printables.com/media/prints/02a902e7-8d76-4d73-9d0c-e2b24ac07583/images/11366572_05ad4c07-4c90-448e-898d-2653f06f5171_ab4a1bea-7d41-478c-9c35-ad96e7c55ffb/twist-knob.png" alt="" loading="lazy"></div>
+        <div class="body">
+          <div class="kind">PRINTABLES</div>
+          <h3>Crack and Twist - Another Hercules Knob Contest Entry</h3>
+          <p class="meta">5 DL · 3 likes · FREE</p>
+          <a class="ext" href="https://www.printables.com/model/1508911-crack-and-twist-another-hercules-knob-contest-entr" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+        </div>
+      </article>
+      <article class="store-card item">
+        <div class="thumb"><img src="https://media.printables.com/media/prints/80833690-f683-4af8-a4a8-5ccc197b237a/images/11331435_1f84630b-84c2-4d64-b115-06958d0dbaf0_c9fbc2ee-6333-4835-aa01-b4c57907faec/saucer_knob_no_light.png" alt="" loading="lazy"></div>
+        <div class="body">
+          <div class="kind">PRINTABLES</div>
+          <h3>Take Me Home - a Hercules DJ Contest Submission</h3>
+          <p class="meta">2 DL · 4 likes · FREE</p>
+          <a class="ext" href="https://www.printables.com/model/1503965-take-me-home-a-hercules-dj-contest-submission" title="Opens an external site" rel="noopener noreferrer">OPEN &gt;</a>
+        </div>
+      </article>
+        </div>
+        <p class="ext-note" style="margin-top:8px"><a class="ext" href="https://www.printables.com/@flyinghorse_3768402" title="Opens an external site" rel="noopener noreferrer">ALL MODELS &gt;</a></p>
+      </div>
+
+      <div class="store-section" id="store-thingiverse">
+        <div class="sec-title">OTHER</div>
+        <div class="store-grid">
+      <article class="store-card link-card">
+        <div class="thumb">LINK · NOT A LISTING</div>
+        <div class="body">
+          <div class="kind">THINGIVERSE</div>
+          <h3>Flying Horse Labs on Thingiverse</h3>
+          <p class="meta">Older uploads live here. No live listing feed — opens the profile.</p>
+          <a class="ext" href="https://www.thingiverse.com/FlyingHorseLabs" title="Opens an external site" rel="noopener noreferrer">PROFILE &gt;</a>
+        </div>
+      </article>
+        </div>
+      </div>
     </section>
 
     <footer class="meta">(C) 2026 FLYING HORSE LABS · operator-panel draft</footer>
@@ -525,7 +755,7 @@
     library: 'LIBRARY · DOCS & TRAINING',
     demo: 'DEMO · OTHER HARDWARE',
     contact: 'CONTACT',
-    store: 'STORE · MERCH & LINKS'
+    store: 'STORE · ETSY / PRINTABLES'
   };
   var projectViews = { all:1, machine:1, program:1, comp:1, library:1, demo:1 };
   var keys = document.querySelectorAll('.softkeys [data-view]');
