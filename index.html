@@ -252,7 +252,7 @@
     <button type="button" class="active" data-view="all" title="All projects">ALL</button>
     <button type="button" data-view="machine" title="CNC machine and 3D printer projects">MACHINE</button>
     <button type="button" data-view="program" title="Non-machining hardware and software">PROGRAM</button>
-    <button type="button" data-view="tipc" title="TIPC projects">TIPC</button>
+    <button type="button" data-view="comp" title="Computer and SBC projects">COMP</button>
     <button type="button" data-view="library" title="Documents and training">LIBRARY</button>
     <button type="button" data-view="demo" title="Other hardware projects">DEMO</button>
     <button type="button" data-view="contact" title="Contact info">CONTACT</button>
@@ -277,7 +277,7 @@
         <p>Drop-in modern control for the Bridgeport DX32 / EZ-PATH CNC lathe. UI demo of every screen.</p>
         <a class="ext" href="https://stovebolt.github.io/dx32-ui-demo/" title="Opens an external site" rel="noopener noreferrer">UI DEMO &gt;</a>
       </article>
-      <article class="card" data-cat="tipc">
+      <article class="card" data-cat="comp">
         <h2>TIPC</h2>
         <p>Texas Instruments Professional Computer: reference mining, emulation, and software ports.</p>
         <span class="dim">LINK COMING SOON</span>
@@ -309,13 +309,13 @@
     all: 'SELECT A PROJECT · ALL',
     machine: 'MACHINE · CNC / 3D PRINTER',
     program: 'PROGRAM · NON-MACHINING',
-    tipc: 'TIPC PROJECTS',
+    comp: 'COMP · COMPUTERS / SBC',
     library: 'LIBRARY · DOCS & TRAINING',
     demo: 'DEMO · OTHER HARDWARE',
     contact: 'CONTACT',
     store: 'STORE · MERCH & LINKS'
   };
-  var projectViews = { all:1, machine:1, program:1, tipc:1, library:1, demo:1 };
+  var projectViews = { all:1, machine:1, program:1, comp:1, library:1, demo:1 };
   var keys = document.querySelectorAll('.softkeys [data-view]');
   var cards = document.querySelectorAll('.card[data-cat]');
   var grid = document.getElementById('project-grid');
@@ -336,7 +336,8 @@
     if (!showProjects) return;
     var shown = 0;
     cards.forEach(function (c) {
-      var ok = view === 'all' || c.getAttribute('data-cat') === view;
+      var cats = (c.getAttribute('data-cat') || '').split(/\s+/).filter(Boolean);
+      var ok = view === 'all' || cats.indexOf(view) !== -1;
       c.hidden = !ok;
       if (ok) shown++;
     });
